@@ -1,5 +1,5 @@
 {
-  "name": "line-counter",
+  "name": "@sklyerx/line-counter",
   "version": "1.0.0",
   "author": "https://skylerx.ir",
   "module": "index.ts",

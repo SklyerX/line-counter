@@ -45,3 +45,7 @@ bun run src/index.ts
 ```
 
 This project was created using `bun init` in bun v1.0.26. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+
+## Roadmap
+
+In the near future I may add default configuration to the project to ignore things such as images, lock files, and OS data files.
