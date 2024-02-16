@@ -1,0 +1,31 @@
+{
+  "name": "line-counter",
+  "version": "1.0.0",
+  "author": "https://skylerx.ir",
+  "module": "index.ts",
+  "dependencies": {
+    "commander": "^12.0.0",
+    "consola": "^3.2.3",
+    "inquirer": "^9.2.14",
+    "js-yaml": "^4.1.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/inquirer": "^9.0.7",
+    "@types/js-yaml": "^4.0.9"
+  },
+  "bin": {
+    "line-counter": "./dist/index.js"
+  },
+  "keywords": [
+    "cli",
+    "typescript",
+    "counter",
+    "util"
+  ],
+  "scripts": {
+    "build": "tsc"
+  },
+  "type": "module"
+}

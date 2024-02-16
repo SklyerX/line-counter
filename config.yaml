@@ -1,0 +1,12 @@
+exclude-empty-lines: false
+verbose: true
+validation:
+  ignore_folders:
+    - node_modules
+    - .vscode
+  ignore_files:
+    - .gitignore
+    - bun.lockb
+  ignore_extensions:
+    - .json
+    - .md
