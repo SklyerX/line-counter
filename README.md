@@ -1,16 +1,25 @@
 # line-counter
 
+### Installation
+
+```
+npm i -g @sklyerx/line-counter
+
 To run the CLI tool with no configurations run:
 
 ```
+
 line-counter count
+
 ```
 
 To get to know more about the configurations run:
 
 ```
+
 line-counter count --help
-```
+
+````
 
 There are many options such as:
 
@@ -36,7 +45,7 @@ To install dependencies:
 
 ```bash
 bun install
-```
+````
 
 To run:
 
