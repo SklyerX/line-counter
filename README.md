@@ -4,10 +4,9 @@
 
 ```
 npm i -g @sklyerx/line-counter
+```
 
 To run the CLI tool with no configurations run:
-
-```
 
 line-counter count
 
