@@ -1,9 +1,11 @@
 # Line Counter V2
 
+An easy CLI tool that allows you to find out how many lines of code your project has!
+
 ## Installation
 
 ```
-npm i -g @skylerx/line-counter
+npm i -g @sklyerx/line-counter
 ```
 
 To run the CLI tool with no configurations run:
