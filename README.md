@@ -1,24 +1,24 @@
-# line-counter
+# Line Counter
 
-### Installation
+## Installation
 
 ```
-npm i -g @sklyerx/line-counter
+npm i -g @skylerx/line-counter
 ```
 
 To run the CLI tool with no configurations run:
 
+```
 line-counter count
-
 ```
 
 To get to know more about the configurations run:
 
 ```
-
 line-counter count --help
+```
 
-````
+_you can get more information on each configuration by running the command above_
 
 There are many options such as:
 
@@ -28,6 +28,7 @@ There are many options such as:
 - Ignoring empty lines (aka line-breaks),
 - verbose mode,
 - load, and
+- Default Ignores
 - save
 
 ## Purpose of Project
@@ -38,22 +39,22 @@ To my surprise, Bun was **as** fast as advertised. It perfectly installed packag
 
 However, I will be getting into the other aspects of Bun in a separate project. Things such as **realtime server**, **backend development**, **testing**, and **shell scripts**
 
----
+## Running the project:
 
-To install dependencies:
+### To install the dependencies run:
 
-```bash
+```
 bun install
-````
-
-To run:
-
-```bash
-bun run src/index.ts
 ```
 
-This project was created using `bun init` in bun v1.0.26. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+### To test the project in development run:
+
+```
+bun run ./src/index.ts count [...options]
+```
 
 ## Roadmap
 
-In the near future I may add default configuration to the project to ignore things such as images, lock files, and OS data files.
+- [x] In the near future I may add default configuration to the project to ignore things such as images, lock files, and OS data files.
+
+_for now there are more pending features_
