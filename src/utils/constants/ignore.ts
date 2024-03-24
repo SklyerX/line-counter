@@ -36,6 +36,7 @@ export const ignore_folders = [
   ".vscode",
   ".idea",
   ".vs",
+  ".next",
 ];
 
 export const ignore_extensions = [
@@ -54,4 +55,5 @@ export const ignore_extensions = [
   ".mkv",
   ".webm",
   ".gz",
+  ".ico",
 ];
