@@ -1,6 +1,6 @@
 {
   "name": "@sklyerx/line-counter",
-  "version": "1.0.1",
+  "version": "2.0.1",
   "author": "https://skylerx.ir",
   "module": "index.ts",
   "dependencies": {
