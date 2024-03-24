@@ -1,4 +1,4 @@
-# Line Counter
+# Line Counter V2
 
 ## Installation
 
