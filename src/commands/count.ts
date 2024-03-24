@@ -2,11 +2,11 @@ import { Command } from "commander";
 import inquirer from "inquirer";
 import { consola } from "consola";
 import yaml from "js-yaml";
-
 import fs from "fs";
 import path from "path";
 import { ConfigValidator } from "../lib/validate-config";
 import { saveInformation, traverseDirectory } from "../utils";
+import { ignore_extensions, ignore_files, ignore_folders } from "../utils/constants/ignore";
 
 export const count = new Command()
   .name("count")
@@ -14,17 +14,14 @@ export const count = new Command()
   .option("--ignore-extensions <extensions...>", "List of extensions to ignore")
   .option("--ignore-folders <folders...>", "List of folders to ignore")
   .option("--ignore-files <folders...>", "List of files to ignore")
-  .option(
-    "--exclude-empty-line, --exclude",
-    "Exclude empty lines (line breaks)",
-    false
-  )
+  .option("--exclude-empty-line, --exclude", "Exclude empty lines (line breaks)", false)
   .option("--verbose", "List of files to ignore", true)
-  .option(
-    "--load <config-file>",
-    "Load from a config file instead of typing it again"
-  )
+  .option("--load <config-file>", "Load from a config file instead of typing it again")
   .option("--save <config-file>", "Save settings to config file")
+  .option(
+    "--default-ignores",
+    "Use the default ignored list / combine it with your current list of ignored files",
+  )
   .action(async (opts) => {
     let {
       ignoreFiles: IGNORE_FILES = [],
@@ -34,14 +31,13 @@ export const count = new Command()
       verbose,
       load,
       save,
+      defaultIgnores,
     } = opts;
 
     if (load) {
-      if (!fs.existsSync(load))
-        return consola.error("Invalid config file was found!");
+      if (!fs.existsSync(load)) return consola.error("Invalid config file was found!");
 
-      if (path.extname(load) !== ".yaml")
-        return consola.error("Config file must a yaml!");
+      if (path.extname(load) !== ".yaml") return consola.error("Config file must be YAML!");
 
       const yamlFile = fs.readFileSync(load, "utf8");
       const data = yaml.load(yamlFile);
@@ -64,6 +60,14 @@ export const count = new Command()
       }
     }
 
+    if (defaultIgnores) {
+      IGNORE_EXTENSIONS = Array.from(new Set([...ignore_extensions, ...IGNORE_EXTENSIONS]));
+      IGNORE_FILES = Array.from(new Set([...ignore_files, ...IGNORE_FILES]));
+      IGNORE_FOLDERS = Array.from(new Set([...ignore_folders, ...IGNORE_FOLDERS]));
+    }
+
+    console.log(IGNORE_FOLDERS);
+
     let totalLines = 0;
 
     const { directory } = await inquirer.prompt({
@@ -85,13 +89,8 @@ export const count = new Command()
       verbose,
     });
 
-    const intl = new Intl.NumberFormat(undefined, {
-      notation: "compact",
-    });
-
-    consola.warn(
-      `Found (${intl.format(totalLines)}) ${totalLines} in ${directory}`
-    );
+    const formattedTotalLines = new Intl.NumberFormat().format(totalLines);
+    consola.warn(`Found (${formattedTotalLines}) ${totalLines} lines in ${directory}`);
 
     if (save)
       saveInformation({

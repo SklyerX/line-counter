@@ -15,23 +15,16 @@ type DirectoryOptions = {
 let totalLines = 0;
 
 export function traverseDirectory(dir: string, opts: DirectoryOptions) {
-  const {
-    IGNORE_EXTENSIONS,
-    EXCLUDE_EMPTY_LINES,
-    IGNORE_FILES,
-    IGNORE_FOLDERS,
-    verbose,
-  } = opts;
+  const { IGNORE_EXTENSIONS, EXCLUDE_EMPTY_LINES, IGNORE_FILES, IGNORE_FOLDERS, verbose } = opts;
 
   const directoryItems = fs.readdirSync(dir);
 
   if (verbose) consola.info(`Found ${directoryItems.length} items in ${dir}\n`);
 
-  directoryItems.map((item) => {
+  directoryItems.forEach((item) => {
     const itemPath = path.join(dir, item);
 
-    if (!fs.existsSync(itemPath))
-      return consola.error(`Path '${path}' was not found!`);
+    if (!fs.existsSync(itemPath)) return consola.error(`Path '${path}' was not found!`);
 
     const stats = fs.lstatSync(itemPath);
 
@@ -42,9 +35,22 @@ export function traverseDirectory(dir: string, opts: DirectoryOptions) {
       }
       traverseDirectory(itemPath, opts);
     } else {
+      const fileName = path.basename(item);
+      const fileExtension = path.extname(fileName);
+
       if (
-        IGNORE_EXTENSIONS.includes(path.extname(item)) ||
-        IGNORE_FILES.includes(item)
+        IGNORE_EXTENSIONS.includes(fileExtension) ||
+        IGNORE_FILES.some((pattern) => {
+          // Check if the file name matches any pattern in IGNORE_FILES
+          if (pattern.includes("*")) {
+            // If the pattern includes "*", use regex matching
+            const regexPattern = new RegExp(pattern.replace(/\*/g, ".*") + "$");
+            return regexPattern.test(fileName);
+          } else {
+            // If the pattern doesn't include "*", match exact file name
+            return fileName === pattern;
+          }
+        })
       ) {
         if (verbose) consola.info(`Skipping file - ${item}\n`);
         return;
@@ -62,7 +68,7 @@ export function traverseDirectory(dir: string, opts: DirectoryOptions) {
         consola.info(
           `Total lines from ${item} was ${lines.length} ${
             EXCLUDE_EMPTY_LINES ? "(excluding empty lines | line breaks)" : ""
-          }\n`
+          }\n`,
         );
 
       totalLines += lines.length;
