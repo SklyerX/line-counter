@@ -10,7 +10,7 @@ export const ignore_files = [
   "package.json",
   "package-lock.json",
   "yarn.lock",
-  "pnpm-lock.yml",
+  "pnpm-lock.yaml",
   "bun.lockb",
   "webpack.config.js",
   "babel.config.js",
